@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome!</title>
+</head>
+<body>
+<h1>Please enter your user ID and password below:</h1>
+<p>Placeholder for login intergration</p>
+</body>
+</html>

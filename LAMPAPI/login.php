@@ -10,10 +10,10 @@
         returnWithError($conn->connect_error);
     } else {
         $password = $inData["password"]
-        $stmt = $conn->prepare("SELECT ID,firstName,lastName,Password FROM Users WHERE Login=?");
+        $stmt = $conn->prepare("SELECT ID, FirstName, LastName, `Password` FROM Users WHERE `Login`=?");
         $stmt->bind_param("s", $inData["login"]);
         $stmt->execute();
-
+        $result = $stmt->get_result();
         if($row = $result->fetch_assoc()){
             // compare passwords
             if(password_verify($password, $row['Password'])){

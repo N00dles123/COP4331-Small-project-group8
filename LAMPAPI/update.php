@@ -14,9 +14,9 @@ $inData = getRequestInfo();
         $lastName = $inData["LastName"];
         $email = $inData["Email"];
         $phone = $inData["Phone"];
-        $contactID = $inData["contactID"];
+        $contactID = $inData["ID"];
 
-        $stmt = $conn->prepare("UPDATE Contacts SET FirstName =?, LastName =?, Email =?, Phone =? WHERE contactID=?");
+        $stmt = $conn->prepare("UPDATE Contacts SET FirstName =?, LastName =?, Email =?, Phone =? WHERE ID=?");
         $stmt->bind_param("ssssi", $firstName, $lastName, $email, $phone, $contactID);
         $stmt->execute();
         

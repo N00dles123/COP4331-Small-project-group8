@@ -10,16 +10,16 @@ $inData = getRequestInfo();
 	else
 	{
         //Look for user in the database
-        $stmt = $conn->prepare("SELECT * from Contacts where Email like ? and contactID=?");
+        $stmt = $conn->prepare("SELECT * from Contacts where Email like ? and ID=?");
 		$email = $inData["Email"];
-        $stmt->bind_param("si", $email, $inData["contactID"]);
+        $stmt->bind_param("si", $email, $inData["ID"]);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if(mysqli_num_rows($result) > 0){
 
-            $stmt = $conn->prepare("DELETE from Contacts where Email like ? and contactID=?");
-            $stmt->bind_param("si", $email, $inData["contactID"]);
+            $stmt = $conn->prepare("DELETE from Contacts where Email like ? and ID=?");
+            $stmt->bind_param("si", $email, $inData["ID"]);
             $stmt->execute();
 
         }else{

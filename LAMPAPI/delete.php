@@ -16,14 +16,13 @@ $inData = getRequestInfo();
         $stmt->execute();
         $result = $stmt->get_result();
 
-		//if it is in the database delete
         if(mysqli_num_rows($result) > 0){
 
             $stmt = $conn->prepare("DELETE from Contacts where Email like ? and ID=?");
             $stmt->bind_param("si", $email, $inData["ID"]);
             $stmt->execute();
 
-        }else{//return error
+        }else{
             returnWithError("Contact not found");
         }
 		

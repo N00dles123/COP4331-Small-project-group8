@@ -1,4 +1,5 @@
 <?php
+    // for login, we need login, and password
     $inData = getRequestInfo();
     
     $id = 0;

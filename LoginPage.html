@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Welcome!</title>
+		<title>Database Project Login</title>
 	</head>
 
 	<body>
 		<h1>Please enter your user ID and password below:</h1>
-			<form>
+			<form action="/login.php" method="post">
 				<label for="lgin">Login:</label><br>
-				<input type="text" id="lgin" name="lgin"><br>
+				<input type="text" id="lgin" name="lgin" required autofocus><br>
 				<label for="psswrd">Password:</label><br>
-				<input type="text" id="psswrd" name="psswrd">
+				<input type="password" id="psswrd" name="psswrd" required><br>
+				<input type="submit" value="Submit">
 			</form>
 	</body>
 </html>

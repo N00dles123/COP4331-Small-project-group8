@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/app.js"></script>
+	<title>Log in or Sign up</title>
+</head>
+
+<body>
+	<div id="container">
+		<div id="box">
+		</div>
+		<div id="loginSection">
+			<h1>Login</h1>
+			<input type="text" id="loginName" class="inputFields" placeholder="Username" /><br />
+			<input type="password" id="loginPassword" class="inputFields" placeholder="Password"/><br />
+			<button type="button" id="loginButton" class="buttons" onclick="doLogin();">Login</button>
+		</div>
+		<div id="signupSection">
+			<h1>Sign up</h1>
+			<input type="text" id="signupName" class="inputFields" placeholder="Username" /><br />
+			<input type="password" id="signupPassword" class="inputFields" placeholder="Password"/><br />
+			<button type="button" id="signupButton" class="buttons" onclick="doSignup();">Sign up</button>
+		</div>
+
+		<div id="returningUser">
+			Returning User?
+		</div>
+
+		<div id="newUser">
+			New User?
+		</div>
+
+		<button type="button" name="button" id="switchLoginButton">Login</button>
+		<button type="button" name="button" id="switchSignupButton">Sign up</button>
+	</div>
+</body>
+</html>

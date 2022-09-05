@@ -14,8 +14,8 @@
 	{
         //prepare the query to search for a contact
 	$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR Email like ? OR Phone like ?) AND UserID=?");
-	$trimmed = trim($inData["Search"]); //get data from frontend and trim any whitespace
-        $search = "%" . $trimmed . "%";
+	//$trimmed = trim($inData["Search"]); //get data from frontend and trim any whitespace NOT WORKING
+        $search = "%" . $inData["Search"] . "%";
 	$stmt->bind_param("ssssi", $search, $search, $search, $search, $inData["UserID"]);
 	$stmt->execute(); //Execute the query
 		

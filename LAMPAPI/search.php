@@ -12,35 +12,34 @@
 	} 
 	else
 	{
-        //prepare the query to search for a contact
-	$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR Email like ? OR Phone like ?) AND UserID=?");
-	//$trimmed = trim($inData["Search"]); //get data from frontend and trim any whitespace NOT WORKING
-        $search = "%" . $inData["Search"] . "%";
-	$stmt->bind_param("ssssi", $search, $search, $search, $search, $inData["UserID"]);
-	$stmt->execute(); //Execute the query
+             //prepare the query
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR Email like ? OR Phone like ?) AND UserID=?");
+                $search = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ssssi", $search, $search, $search, $search, $inData["UserID"]);
+		$stmt->execute(); //Execute the query
 		
-	$result = $stmt->get_result();
-	
-	//collect results from search
-	while($row = $result->fetch_assoc())
-	{
-		if( $searchCount > 0 )
+		$result = $stmt->get_result();
+		
+                //collect results from search
+		while($row = $result->fetch_assoc())
 		{
-			$searchResults .= ",";
+			if( $searchCount > 0 )
+			{
+				$searchResults .= ",";
+			}
+			$searchCount++;
+                        $searchResults .= '"' . $row["FirstName"] . ' '. $row["LastName"] . ', '.'Phone: '. $row["Phone"] .', '. 'Email: '. $row["Email"]. ', '. 'Date Created: '. $row["DateCreated"]. '"';
+           	}
+		
+                //If no matching record was found return with error
+		if( $searchCount == 0 )
+		{
+			returnWithError( "No Records Found" );
 		}
-	    	$searchCount++;
-           	$searchResults .= '"' . $row["FirstName"] . ' '. $row["LastName"] . ', '.'Phone: '. $row["Phone"] .', '. 'Email: '. $row["Email"]. '"';
-	}
-	
-	//If no matching record was found return with error
-	if( $searchCount == 0 )
-	{
-		returnWithError( "No Records Found" );
-	}
-	else
-	{
-		returnWithInfo( $searchResults );
-	}
+		else
+		{
+			returnWithInfo( $searchResults );
+		}
 		
 		$stmt->close();
 		$conn->close();

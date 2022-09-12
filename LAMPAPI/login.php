@@ -1,4 +1,5 @@
 <?php
+    // for login, we need login, and password
     $inData = getRequestInfo();
     
     $id = 0;
@@ -10,14 +11,16 @@
         returnWithError($conn->connect_error);
     } else {
         $password = $inData["password"];
-        $stmt = $conn->prepare("SELECT ID, FirstName, LastName, `Password` FROM Users WHERE `Login`=?");
+
+        $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Password FROM Users WHERE Login=?");
+
         $stmt->bind_param("s", $inData["login"]);
         $stmt->execute();
         $result = $stmt->get_result();
         if($row = $result->fetch_assoc()){
             // compare passwords
             if(password_verify($password, $row['Password'])){
-                returnWithInfo($row['firstName'], $row['lastName'], $row['ID']);
+                returnWithInfo($row['FirstName'], $row['LastName'], $row['ID']);
             } else {
                 returnWithError("Passwords Do Not Match");
             }

@@ -5,29 +5,33 @@ $inData = getRequestInfo();
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
-		returnWithError( $conn->connect_error );
+	    returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-        //Look for user in the database
-        $stmt = $conn->prepare("SELECT * from Contacts where Email like ? and ID=?");
-		$email = $inData["Email"];
-        $stmt->bind_param("si", $email, $inData["ID"]);
+		
+        //Look for the contact in the database
+	$email = $inData["Email"];
+	$userID = $inData["UserID"];
+        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE Email like ? AND UserID=?");
+        $stmt->bind_param("si", $email, $userID);
         $stmt->execute();
         $result = $stmt->get_result();
 
+	//if contact exists then delete it
         if(mysqli_num_rows($result) > 0){
 
-            $stmt = $conn->prepare("DELETE from Contacts where Email like ? and ID=?");
-            $stmt->bind_param("si", $email, $inData["ID"]);
+            $stmt = $conn->prepare("DELETE FROM Contacts WHERE Email like ? AND UserID=?");
+            $stmt->bind_param("si", $email, $userID);
+	    //delete the contact
             $stmt->execute();
+	    returnWithError("Contact deleted");
 
-        }else{
+        }else{ //else return with error
             returnWithError("Contact not found");
         }
-		
-		$stmt->close();
-		$conn->close();
+	    $stmt->close();
+	    $conn->close();
 	}
 
 	function getRequestInfo()

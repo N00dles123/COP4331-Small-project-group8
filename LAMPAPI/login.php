@@ -11,7 +11,9 @@
         returnWithError($conn->connect_error);
     } else {
         $password = $inData["password"];
+
         $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Password FROM Users WHERE Login=?");
+
         $stmt->bind_param("s", $inData["login"]);
         $stmt->execute();
         $result = $stmt->get_result();

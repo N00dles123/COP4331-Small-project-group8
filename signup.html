@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group8 SmallProject</title>
 
-    <script src="/js/signup.js"></script>
+    <script src="js/signup.js"></script>
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" /></head>
 <body>
     
     <div class="login-card-container">
         <div class="login-card">
             <div class="signup-card-logo">
-                <img src="/images/phone_logo.png" alt="logo">
+                <img src="images/phone_logo.png" alt="logo">
                 <h3> Contacts Hub</h3>
             </div>
 
@@ -28,31 +28,34 @@
             <form class="login-card-form">
                 <div class="form-item">
                     <span class="form-item-icon material-symbols-rounded">assignment_ind</span>
-                    <input type="text" id="firstName" placeholder="Enter Firstname" required autofocus>
+                    <input type="text" id="firstName" placeholder="First Name" required autofocus>
                 </div>
 
                <div class="form-item">
                     <span class="form-item-icon material-symbols-rounded">assignment_ind</span>
-                    <input type="text" id="lastName" placeholder="Enter Lastname" required autofocus>
+                    <input type="text" id="lastName" placeholder="Last Name" required autofocus>
                 </div>
 
                 <div class="form-item">
                     <span class="form-item-icon material-symbols-rounded">mail</span>
-                    <input type="email" id="email" placeholder="Enter Email" required autofocus>
+                    <input type="email" id="email" placeholder="Email" required autofocus>
                 </div>
 
                  <div class="form-item">
                     <span class="form-item-icon material-symbols-rounded">person</span>
-                    <input type="text" id="userName" placeholder="Enter Username" required autofocus>
+                    <input type="text" id="userName" placeholder="Username" required autofocus>
                 </div>
                 <div class="form-item">
                     <span class="form-item-icon material-symbols-rounded">lock</span>
-                    <input type="password" id="password" placeholder="Enter Password" required>
+                    <input type="password" id="password" placeholder="Password" required>
                 </div>
             
                 <span id="signupResult"></span>
                 <button type="button" id="signUpBtn" onclick="doSignUp();">Sign Up</button>
             </form>
+
+            <div class="signup-card-footer">
+                Already have an account? <a href="index.html">Sign in</a>
 
         </div>
     </div>

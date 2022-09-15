@@ -11,34 +11,35 @@
     } else {
         if(empty($inData['login']) || empty($inData['email']) || empty($inData['Password']) || empty($inData['firstName']) || empty($inData['lastName'])){
             returnwithError("Please fill out all fields");
-        }
-        $stmt = $conn->prepare("SELECT Email, Login FROM Users WHERE Login=? OR Email=?");
-        $stmt->bind_param("ss", $login, $email);
-        $login = $inData['login'];
-        $email = $inData['email'];
-        $plainpass = $inData['Password'];
-        $firstName = $inData['firstName'];
-        $lastName = $inData['lastName'];
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        // we know that we gotta say email or username already taken
-        // otherwise we prepare sql statement
-        $row = $result->fetch_assoc();
-        $stmt->close();
-        if($row){
-            returnwithError("Email or username already taken");
         } else {
-            $password = password_hash($plainpass, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Email, Login, Password) VALUES(?,?,?,?,?)");
-            $stmt->bind_param("sssss", $firstName, $lastName, $email, $login, $password);
+            $stmt = $conn->prepare("SELECT Email, Login FROM Users WHERE Login=? OR Email=?");
+            $stmt->bind_param("ss", $login, $email);
+            $login = $inData['login'];
+            $email = $inData['email'];
+            $plainpass = $inData['Password'];
+            $firstName = $inData['firstName'];
+            $lastName = $inData['lastName'];
             $stmt->execute();
-            $stmt->close();
-            $conn->close();
-            // success!
-            // sending empty string means no error
-            returnWithError("");
+            $result = $stmt->get_result();
 
+            // we know that we gotta say email or username already taken
+            // otherwise we prepare sql statement
+            $row = $result->fetch_assoc();
+            $stmt->close();
+            if($row){
+                returnwithError("Email or username already taken");
+            } else {
+                $password = password_hash($plainpass, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Email, Login, Password) VALUES(?,?,?,?,?)");
+                $stmt->bind_param("sssss", $firstName, $lastName, $email, $login, $password);
+                $stmt->execute();
+                $stmt->close();
+                $conn->close();
+                // success!
+                // sending empty string means no error
+                returnWithError("");
+
+            }
         }
     }
 

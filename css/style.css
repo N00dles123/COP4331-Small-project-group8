@@ -1,0 +1,238 @@
+@import url("reset.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    /* background: linear-gradient(to right, #333399, #ff00cc); */
+    background: rgb(10, 4, 115);
+    background: linear-gradient(-30deg, rgba(10,4,115,1) 0%, rgba(9,9,121,1) 37%, rgb(95, 183, 201) 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: 600px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 4rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.35); 
+    border-radius: 10px;
+    inset: 0;
+    transform: rotate(-5deg);
+    z-index: -1;
+}
+
+.login-card-logo {
+    display: inline-flex;
+}
+
+.login-card-logo img{
+    width: 100px;
+    align-self: center;
+    margin-right: 30px;
+}
+
+.login-card-logo h2 {
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.login-card-logo h2 + div {
+    font-size: calc(1rem * .8);
+    opacity: 0.8;
+}
+
+.signup-card-logo {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    float: left;
+}
+
+.signup-card-logo img{
+    width: 60px;
+    align-self: center;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.signup-card-logo h3 {
+    font-size: 45px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.signup-card-logo h3 + div {
+    font-size: calc(1rem * .8);
+    opacity: 0.8;
+}
+
+.login-card-logo,
+.login-card-header,
+.login-card-footer,
+.signup-card-logo {
+    text-align: center;
+}
+
+.login-card a {
+    text-align: none;
+    color: #35339a;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+}
+
+.login-card-header {
+    margin-bottom: 1rem;
+}
+
+.login-card-header h3{
+    position: relative;
+    top: 0%;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: .4rem;
+    margin-top: 0;
+}
+
+.login-card-header h3 + div {
+    font-size: calc(1rem * .8);
+    opacity: 0.8;
+}
+
+.social-container {
+    padding: 10px;
+	margin: 10px;
+}
+
+.social-container a {
+	border: none;
+	border-radius: 50%;
+	display: inline-flex;
+    justify-content: center;
+    align-items: center;
+	margin: 10px;
+	height: 60px;
+	width: 60px;
+    position: relative;
+    left: 95px;
+    color: black;
+	background: white;
+}
+
+.social:hover {
+    opacity: 0.7;
+}
+
+.login-card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.login-card-form .form-item {
+    position: relative;
+}
+
+.login-card-form .form-item .form-item-icon {
+    position: absolute;
+    top: 0.82rem;
+    left: 1.4rem;
+    font-size: 2rem;
+    opacity: 0.7;
+}
+
+.login-card .login-card-footer {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.login-card .login-card-footer a {
+    text-align: none;
+    color: #35339a;
+}
+
+.login-card .login-card-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-card .signup-card-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.login-card .signup-card-footer a {
+    text-align: none;
+    color: #35339a;
+}
+
+.login-card .signup-card-footer a:hover {
+    text-decoration: underline;
+}
+
+.signup-special {
+    border-bottom: #000000;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"],
+.login-card input[type="email"] {
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;
+}
+
+.login-card input:focus {
+    background: white;
+}
+
+.login-card button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .2s;
+    font-size: .9rem;
+}
+
+.login-card-form button:hover {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 2rem 0;
+    }
+
+    .login-card {
+        width: 400px;
+        padding: 2rem;
+    }
+}
+
+
+

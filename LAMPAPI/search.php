@@ -29,7 +29,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-                        $searchResults .= '"' . $row["FirstName"] . ' '. $row["LastName"] . ', '.'Phone: '. $row["Phone"] .', '. 'Email: '. $row["Email"]. ', '. 'Date Created: '. $row["DateCreated"]. '"';
+                        $searchResults .= '{'.'"firstName": '. ' "'. $row["FirstName"]. '", '. '"lastName": '. '"'.$row["LastName"] . '", '.' "phone": '. ' "'.$row["Phone"] .'", '. ' "email": '. '"'.$row["Email"]. '", '. ' "dateCreated": '. '"'.$row["DateCreated"]. '" }';
            	}
 		
                 //If no matching record was found return with error

@@ -1,0 +1,286 @@
+@import url("reset.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    /* background: linear-gradient(to right, #333399, #ff00cc); */
+    background: rgb(10, 4, 115);
+    background: linear-gradient(-30deg, rgba(10,4,115,1) 0%, rgba(9,9,121,1) 37%, rgb(95, 183, 201) 80%);
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.nav-bar-container {
+    width: 100%;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 0;
+    padding: 20px 10px;
+    /* padding: 4rem; */
+    border-radius: 10px;
+    position: relative;
+    display: inline-flex;
+}
+
+.nav-bar-container::before {
+    content: '';
+    position: absolute;
+    display: flex;
+    background: rgba(255, 255, 255, 0.35); 
+    border-radius: 4px;
+    inset: 0;
+    transform: rotate(-2deg);
+    z-index: -1;
+}
+
+.nav-bar-container img{
+    width: 100px;
+    position: absolute;
+    top: 10%;
+}
+
+.nav-bar-container h2 {
+    position: absolute;
+    left: 8%;
+    top: 20%;
+    font-size: 45px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.nav-bar-container h2 + div {
+    font-size: calc(1rem * .8);
+    opacity: 0.8;
+}
+
+.nav-bar-container button {
+    left: 85%;
+    top: 30%;
+    position: absolute;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    height: 50px;
+    width: 200px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .2s;
+    font-size: .9rem;
+}
+
+.nav-bar-container button:hover{
+    background-color: white;
+    color: black;      
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.contacts-table {
+    position: relative;
+    width: 100%;
+}
+
+.contacts-table-header {
+    text-align: center;
+    align-content: center;
+}
+
+.table-header {
+    display: inline;
+    text-align: left;
+    align-content: center;
+}
+
+.contacts-table-header input {
+    height: 35px;
+    font-size: 18px;
+    width: 50%;
+    align-content: center;
+  }
+  
+.contacts-table-header button {
+    width: 50px;
+    height: 35px;
+    border: none;
+    background: white;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+.contacts-table-header button:hover {
+    background: #0b7dda;
+}
+.column-header {
+    font-size: 20px;
+}
+
+.test {
+    align-content: center;
+    text-align: center;
+    background: black;
+    height: 50%;
+    width: 50%;
+}
+
+table {
+    color: white;
+    text-align: center;
+    border: none;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+table tr {
+    color: black;
+}
+table td {
+    color: black;
+}
+
+table th {
+    color: black;
+    border-bottom: 2px solid #000;
+}
+
+.add-card {
+    position: absolute;
+    margin-top: 50px;
+    left: 37%;
+}
+
+.add-contact-form {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.add-contact-form .form-item {
+    position: relative;
+}
+
+.add-contact-form .form-item .form-item-icon {
+    position: absolute;
+    top: 0.82rem;
+    left: 1.4rem;
+    font-size: 2rem;
+    opacity: 0.7;
+}
+
+.add-card input[type="text"],
+.add-card input[type="email"],
+.add-card input[type="phone"] {
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;
+}
+
+.add-card input:focus {
+    background: white;
+}
+
+.add-card button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .2s;
+    font-size: .9rem;
+}
+
+.add-contact-form button:hover {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.edit-card {
+    position: absolute;
+    margin-top: 50px;
+    left: 37%;
+}
+
+.edit-contact-form {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.edit-contact-form .form-item {
+    position: relative;
+}
+
+.edit-contact-form .form-item .form-item-icon {
+    position: absolute;
+    top: 0.82rem;
+    left: 1.4rem;
+    font-size: 2rem;
+    opacity: 0.7;
+}
+
+.edit-card input[type="text"],
+.edit-card input[type="email"],
+.edit-card input[type="phone"] {
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;
+}
+
+.edit-card input:focus {
+    background: white;
+}
+
+.edit-card button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .2s;
+    font-size: .9rem;
+}
+
+.edit-contact-form button:hover {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 2rem 0;
+    }
+
+    .login-card {
+        width: 400px;
+        padding: 2rem;
+    }
+}

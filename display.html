@@ -1,74 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group8 SmallProject</title>
+	<script src="/js/code.js"></script>
+    <script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() 
+		{
+			readCookie();
+		}, false);
+	</script>
+    <link rel="stylesheet" href="/css/display.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
 
-    <script src="js/login.js"></script>
-
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/styleDisplay.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" /></head>
 <body>
-
-    <div class="container">
-		<div class="nav-bar-container">
-			<table style="width:100%">
-			<tr>
-					<td><img src="images/phone_logo.png" alt="logo">
-					<h2>Contacts Hub</h2>
-			</tr>
-			<tr>
-				<p> Your contacts</p>
-				<td><input type="text" id="searchText" placeholder="Search for a Contact"/>
-					<button type="button" id="searchButton" class="buttons" onclick="searchContact();"> Search </button>
-				<button type="button" id="addButton" class="buttons" onclick="addContact();"> Add Contact </button>
-				<!--This one needs work...--> <button type="button" id="allButton" class="buttons"> All </button>
-			</tr>
-			<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-				<th>Phone Number</th>
-				<th>Action</th>
-			</tr>
-			<tr>
-				<td>Placeholder</td>
-					<td>Placeholder</td>
-					<td>Placeholder</td>
-				<td>Placeholder</td>
-				<button type="button" id="updateButton" class="buttons" onclick="updateContact();"> Update Contact </button>
-				<button type="button" id="deleteButton" class="buttons" onclick="deleteContact();"> Delete Contact </button>
-			</tr>
-			<tr>
-				<td>Placeholder</td>
-					<td>Placeholder</td>
-					<td>Placeholder</td>
-				<td>Placeholder</td>
-				<button type="button" id="updateButton" class="buttons" onclick="updateContact();"> Update Contact </button>
-				<button type="button" id="deleteButton" class="buttons" onclick="deleteContact();"> Delete Contact </button>
-			</tr>
-			<tr>
-				<td>Placeholder</td>
-					<td>Placeholder</td>
-					<td>Placeholder</td>
-				<td>Placeholder</td>
-				<button type="button" id="updateButton" class="buttons" onclick="updateContact();"> Update Contact </button>
-				<button type="button" id="deleteButton" class="buttons" onclick="deleteContact();"> Delete Contact </button>
-			</tr>
-		</table>
-		</div>
-		<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    <div class="nav-bar-container">
+		<img src="/images/phone_logo.png" alt="logo">
+        <h2>Contacts Hub</h2>
+		<button type="button" id="logoutButton" onclick="doLogout();"> Log Out </button>
 	</div>
-    
 
+	<table class="contacts-table">
+		<tr class="contacts-table-header">
+			<span id="userName"></span>
+			<td colspan="5">
+				<!--<div class="table-header">Your Contacts</div>-->
+				<input type="text" id="searchText" onkeyup="searchContact()" placeholder="Search..."/>
+				
+				<button id="showAddButton" onclick="showAdd();"><i class="fa fa-plus"></i></button>
+				<button type="button" id="allButton" class="buttons" onclick="searchContact();"> All</button>
+			</td>
+		</tr>
+  		<tr class="column-header">
+    		<th scope="col">First Name</th>
+    		<th scope="col">Last Name</th>
+    		<th scope="col">Email</th>
+			<th scope="col">Phone Number</th>
+			<th scope="col">Actions</th>
+  		</tr>
+  		<tbody id="tableBody">
+		</tbody>
+	</table>
+
+	<span id="searchResult"></span>
+	<span id="deleteResult"></span>
+	<span id="addResult"></span>
+
+	<div id="test">
+	</div>
+
+	<div class="add-card" id="add-card" hidden>
+		<form name="addContactForm" class="add-contact-form" onsubmit="addContact(); return false">
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">assignment_ind</span>
+				<input type="text" id="add_firstname" placeholder="Enter First name" required>
+			</div>
+
+		<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">assignment_ind</span>
+				<input type="text" id="add_lastname" placeholder="Enter Last name" required>
+			</div>
+
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">mail</span>
+				<input type="email" id="add_email" placeholder="Enter Email" required>
+			</div>
+
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">person</span>
+				<input type="phone" id="add_phone" placeholder="Enter Phone Number" required>
+			</div>
+		
+			<button type="submit" id="add_Button">Add Contact</button>
+			<button type="submit" id="add_Button">Cancel</button>
+		</form>
+	</div>
+
+	<div class="edit-card" id="edit-card" hidden>
+		<form name="editContactForm" class="edit-contact-form" onsubmit="doEdit(); return false">
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">assignment_ind</span>
+				<input type="text" id="edit_firstname" placeholder="Enter First name" required>
+			</div>
+
+		<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">assignment_ind</span>
+				<input type="text" id="edit_lastname" placeholder="Enter Last name" required>
+			</div>
+
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">mail</span>
+				<input type="email" id="edit_email" placeholder="Enter Email" required>
+			</div>
+
+			<div class="form-item">
+				<span class="form-item-icon material-symbols-rounded">person</span>
+				<input type="phone" id="edit_phone" placeholder="Enter Phone Number" required>
+			</div>
+		
+			<button type="submit" id="edit_Button">Edit Contact</button>
+			<button type="submit" id="edit_Button">Cancel</button>
+		</form>
+	</div>
+	
 </body>
 </html>

@@ -12,16 +12,16 @@
 	} 
 	else
 	{
-             	//prepare the query
+        	//prepare the query
 		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR Email like ? OR Phone like ?) AND UserID=?");
 		$trimmed = trim($inData["search"]);
-        	$search = "%" . $trimmed . "%";
+       		$search = "%" . $trimmed . "%";
 		$stmt->bind_param("ssssi", $search, $search, $search, $search, $inData["UserID"]);
 		$stmt->execute(); //Execute the query
 		
 		$result = $stmt->get_result();
 		
-                //collect results from search
+       		//collect results from search
 		while($row = $result->fetch_assoc())
 		{
 			if( $searchCount > 0 )
@@ -29,10 +29,10 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-                        $searchResults .= '{'.'"firstName": '. ' "'. $row["FirstName"]. '", '. '"lastName": '. '"'.$row["LastName"] . '", '.' "phone": '. ' "'.$row["Phone"] .'", '. ' "email": '. '"'.$row["Email"]. '", '. ' "dateCreated": '. '"'.$row["DateCreated"]. '" }';
-           	}
+            		$searchResults .= '{'.'"firstName": '. ' "'. $row["FirstName"]. '", '. '"lastName": '. '"'.$row["LastName"] . '", '.' "phone": '. ' "'.$row["Phone"] .'", '. ' "email": '. '"'.$row["Email"]. '", '. ' "contactID": '. '"'.$row["ID"]. '", '. ' "dateCreated": '. '"'.$row["DateCreated"]. '" }';
+       	 	}
 		
-                //If no matching record was found return with error
+        	//If no matching record was found return with error
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );

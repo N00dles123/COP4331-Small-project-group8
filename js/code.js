@@ -1,11 +1,17 @@
 const urlBase = 'https://cop4331-8.live/LAMPAPI';
 const extension = 'php';
 
+
 let userId = 0;
 let firstName = "";
 let lastName = "";
 let login = "";
 let password = "";
+
+let j = 0;
+
+let myArray;
+
 
 function doLogin()
 {
@@ -21,7 +27,7 @@ function doLogin()
 	let tmp = {login:login,password:password};
 	// var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify(tmp);
-	console.log(jsonPayload);
+	// console.log(jsonPayload);
 	let url = urlBase + '/login.' + extension;
 
 	let xhr = new XMLHttpRequest();
@@ -75,10 +81,10 @@ function doSignUp()
 	let tmp = {login:login,Password:password, email:email, firstName:firstName, lastName:lastName};
 	let jsonPayload = JSON.stringify( tmp );
 
-	console.log(jsonPayload);
+	// console.log(jsonPayload);
 
 	let url = urlBase + '/register.' + extension;
-	console.log(url);
+	// console.log(url);
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -92,7 +98,7 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
                 document.getElementById("signupResult").innerHTML = "Your account has successfully been created!";
-                console.log("User created");
+                // console.log("User created");
 				setTimeout(function(){
 					window.location.href = 'index.html';
 				 }, 1500);
@@ -180,21 +186,35 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("addResult").innerHTML = "Contact has been added";
+
+			let jsonObj = JSON.parse( xhr.responseText );
+			error = jsonObj.error;
+				
+				if(error == "") {
+					document.getElementById("addResult").innerHTML = "Contact has been added";
+
+				}
+				else {
+					document.getElementById("addResult").innerHTML = jsonObj.error;
+				}
+
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("addResult").innerHTML = err.message;
+		document.getElementById("addResult").innerHTML = jsonObject.error;
 	}
 	
 }
 
 function searchContact()
 {
-	console.log("Searching");
+
+	contact_count = 0;
+
+	// console.log("Searching");
 	let tableData = "";
 	document.getElementById("tableBody").innerHTML = tableData;
 
@@ -204,7 +224,7 @@ function searchContact()
 	
 
 	let tmp = {search:srch,UserID:userId};
-	console.log(tmp);
+	// console.log(tmp);
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/search.' + extension;
@@ -218,11 +238,11 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				console.log("Contact(s) retrieved");
+				// console.log("Contact(s) retrieved");
 
 				let jsonObject = JSON.parse( xhr.responseText );
 				
-				let length = Object.keys(jsonObject).length;
+				let length = jsonObject.results.length;
 
 
 				if (jsonObject.id < 1) {
@@ -235,28 +255,38 @@ function searchContact()
 
 				let res = jsonObject.results;
 
+				// console.log(res);
 
-				for (let i = 0; i < jsonObject.results.length; i++) {
+				myArray = res;
+				console.log(myArray);
 
-					console.log(res[i]);
+
+				for (let i = 0; i < length; i++) {
+
+					// console.log(res[i]);
 
 					let first_name = res[i]["firstName"];
 					let last_name = res[i]["lastName"];
 					let email = res[i]["email"];
 					let phone = res[i]["phone"];
 
-					console.log(email);
+					// console.log(email);
+
+					// results = this.response;
+					// console.log(results);	
 
 					tableData += 
-					`<tr id="table">
+					`<tr id="${i}">
 					<td id="first_name">${first_name}</td>
 					<td id="last_name">${last_name}</td>
 					<td id="email">${email}</td>
 					<td id="phone">${phone}</td>
-					<td><button type="button" onclick="doEdit();"><img src="/images/editIcon.png" alt="edit" width="30" height="30"></button>
-                    <button type="button" onclick="doDelete();"><img src="/images/deleteIcon.png" alt="edit" width="30" height="30"></button>
+					<td><button type="button" onclick="showEdit(${i});"><img src="/images/editIcon.png" alt="edit" width="30" height="30"></button>
+                    <button type="button" onclick="doDelete(this);"><img src="/images/deleteIcon.png" alt="edit" width="30" height="30"></button>
 
 					</tr>`;
+
+					contact_count = length;
 				}
 
 				document.getElementById("tableBody").innerHTML = tableData;
@@ -272,10 +302,41 @@ function searchContact()
 }
 
 
-function doDelete(email) {
+function doDelete(element) {
 
-	email = document.getElementById("email").innerHTML;
-	console.log(email);
+
+	// console.log(element);
+
+	// console.log(document.getElementById("tableBody").rows.length);
+
+	console.log("Deleting...");
+
+	// console.log("index: ");
+	// console.log(element.parentNode.parentNode.rowIndex);
+
+
+
+	// var i = element.parentNode.parentNode.rowIndex - 1;
+	// console.log(contact_count);
+
+	// document.getElementById("tableBody").deleteRow(i);
+	// console.log(email);
+
+	var i = element.parentNode.parentNode.rowIndex - 2;
+
+    console.log(i);
+
+    // console.log(contact_count);
+
+    var table = document.getElementById("tableBody");
+
+
+    // email = table.rows["test4"].cells[2].innerHTML;
+	email = table.rows[i].cells[2].innerHTML;
+
+    console.log(email);
+
+	
 
 	let tmp = {Email: email, UserID: userId};
 	console.log(tmp);
@@ -298,15 +359,106 @@ function doDelete(email) {
 			}
 		};
 		xhr.send(jsonPayload);
-		searchContact();
 	}
 	catch(err) {
 		document.getElementById("deleteResult").innerHTML = err.message;
 	}
+	searchContact();
+w
 }
 
 function doEdit() {
-    var x = document.getElementById("edit-card");
+
+
+	console.log(j);
+
+	console.log(myArray[j].contactID);
+	let contact_id = myArray[j].contactID;
+	// console.log(element[5].firstName);
+	// console.log(element.rowIndex);
+
+
+	// var i = element.parentNode.Index - 2;
+	// var i = element.parentNode.parentNode.rowIndex - 2;
+
+
+	var table = document.getElementById("tableBody");
+	// var row = document.getElementById("1");
+	// console.log(row);
+
+	// document.getElementById("edit_firstname").value = table.rows[j].cells[0].innerHTML;
+	// document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
+	// document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
+	// document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
+
+	let tmp_first = document.getElementById("edit_firstname").value;
+	let tmp_last = document.getElementById("edit_lastname").value;
+	let tmp_email = document.getElementById("edit_email").value;
+	let tmp_phone = document.getElementById("edit_phone").value;
+
+
+
+	// document.getElementById("editResult").innerHTML = "";
+
+
+	// alert(userId);
+
+	let tmp = {ID: contact_id, UserID: userId, FirstName: tmp_first, LastName: tmp_last, Email: tmp_email, Phone: tmp_phone};
+
+	// alert(tmp);
+	console.log(tmp);
+
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/update.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("PUT", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+
+		xhr.onreadystatechange = function() {
+
+			if (this.readyState == 4 && this.status == 200) {
+
+				// let jsonObj = JSON.parse( xhr.responseText );
+				// console.log(jsonObj);
+
+				document.getElementById("editResult").innerHTML = "Contact has been updated successfully.";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+
+		document.getElementById("editResult").innerHTML = "error";
+	}
+	
+    // if (x.style.display === "block")
+    // {
+    //   x.style.display = "none";
+    // } 
+    // else 
+    // {
+    //   x.style.display = "block";
+    // }
+}
+
+function showEdit(index) 
+{
+
+	console.log(index);
+	j = index;
+
+	var table = document.getElementById("tableBody");
+	document.getElementById("edit_firstname").value = table.rows[j].cells[0].innerHTML;
+	document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
+	document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
+	document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
+
+
+	var x = document.getElementById("edit-card");
     if (x.style.display === "block")
     {
       x.style.display = "none";

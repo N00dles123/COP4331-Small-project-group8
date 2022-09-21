@@ -42,7 +42,7 @@ body {
     top: 10%;
 }
 
-.nav-bar-container h2 {
+.nav-bar-container h1 {
     position: absolute;
     left: 8%;
     top: 20%;
@@ -52,14 +52,14 @@ body {
     margin-bottom: 0;
 }
 
-.nav-bar-container h2 + div {
+.nav-bar-container h1 + div {
     font-size: calc(1rem * .8);
     opacity: 0.8;
 }
 
 .nav-bar-container button {
     left: 85%;
-    top: 30%;
+    top: 40%;
     position: absolute;
     background-color: black;
     border: none;
@@ -81,9 +81,18 @@ body {
     cursor: pointer;
 }
 
+#userName {
+    text-align: center;
+    font-size: 18px;
+    left: 11%;
+    top: 70%;
+    position: absolute;
+}
+
 .contacts-table {
     position: relative;
     width: 100%;
+    margin-top: 5px;
 }
 
 .contacts-table-header {
@@ -135,6 +144,12 @@ table {
     border: none;
     border-collapse: collapse;
     background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+}
+
+table th {
+    color: black;
+    border-bottom: 2px solid #000;
 }
 
 table tr {
@@ -144,48 +159,66 @@ table td {
     color: black;
 }
 
-table th {
-    color: black;
-    border-bottom: 2px solid #000;
+/*td:nth-child(5n+1) {  
+    width: 25%;
 }
 
-.add-card {
+td:nth-child(5n+2) {  
+    width: 25%;
+}
+
+td:nth-child(5n+3) {  
+    width: 25%;
+}
+
+td:nth-child(5n+4) {  
+    width: 25%;
+}
+
+td:nth-child(5n+5) {  
+    width: 10px;
+}*/
+
+.add-card-container {
     position: absolute;
-    margin-top: 50px;
-    left: 37%;
-}
-
-.add-contact-form {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    background: rgba(255, 255, 255, 0.6);
+    left: 80%;
+    top: 134px;
+    height: 392px;
+    border-radius: 10px;
+    margin-top: 5px;
+    width: calc(20% - 7px);
 }
 
 .add-contact-form .form-item {
     position: relative;
+    margin-left: 5px;
 }
 
 .add-contact-form .form-item .form-item-icon {
     position: absolute;
-    top: 0.82rem;
-    left: 1.4rem;
-    font-size: 2rem;
+    top: 18px;
+    left: 22px;
+    font-size: 32px;
     opacity: 0.7;
 }
 
 .add-card input[type="text"],
 .add-card input[type="email"],
-.add-card input[type="phone"] {
+.add-card input[type="tel"] {
     border: none;
     outline: none;
-    font-size: .9rem;
+    font-size: 16px;
     background: rgba(255, 255, 255, 0.3);
-    padding: 1rem 1.5rem;
+    padding: 20px;
     padding-left: calc(1rem * 3.5);
-    border-radius: 100px;
-    width: 100%;
+    width: 95%;
+    border-radius: 25px;
     transition: background .5s;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .add-card input:focus {
@@ -196,12 +229,17 @@ table th {
     background-color: black;
     border: none;
     color: white;
-    padding: 1rem;
-    border-radius: 100px;
+    padding: 16px;
+    border-radius: 25px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: background .2s;
-    font-size: .9rem;
+    font-size: 16px;
+    width: 95%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .add-contact-form button:hover {
@@ -211,43 +249,46 @@ table th {
     cursor: pointer;
 }
 
-.edit-card {
+.edit-card-container {
     position: absolute;
-    margin-top: 50px;
-    left: 37%;
-}
-
-.edit-contact-form {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    background: rgba(255, 255, 255, 0.6);
+    left: 80%;
+    top: 134px;
+    height: 392px;
+    border-radius: 10px;
+    margin-top: 5px;
+    width: calc(20% - 7px);
 }
 
 .edit-contact-form .form-item {
     position: relative;
+    margin-left: 5px;
 }
 
 .edit-contact-form .form-item .form-item-icon {
     position: absolute;
-    top: 0.82rem;
-    left: 1.4rem;
-    font-size: 2rem;
+    top: 18px;
+    left: 22px;
+    font-size: 32px;
     opacity: 0.7;
 }
 
 .edit-card input[type="text"],
 .edit-card input[type="email"],
-.edit-card input[type="phone"] {
+.edit-card input[type="tel"] {
     border: none;
     outline: none;
-    font-size: .9rem;
+    font-size: 16px;
     background: rgba(255, 255, 255, 0.3);
-    padding: 1rem 1.5rem;
+    padding: 20px;
     padding-left: calc(1rem * 3.5);
-    border-radius: 100px;
-    width: 100%;
+    width: 95%;
+    border-radius: 25px;
     transition: background .5s;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .edit-card input:focus {
@@ -258,12 +299,17 @@ table th {
     background-color: black;
     border: none;
     color: white;
-    padding: 1rem;
-    border-radius: 100px;
+    padding: 16px;
+    border-radius: 25px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: background .2s;
-    font-size: .9rem;
+    font-size: 16px;
+    width: 95%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .edit-contact-form button:hover {

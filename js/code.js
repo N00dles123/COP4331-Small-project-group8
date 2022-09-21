@@ -42,7 +42,6 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				// console.log(jsonObject);
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -61,7 +60,6 @@ function doLogin()
 	}
 	catch(err)
 	{
-		// console.log("error with http request");
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
@@ -80,11 +78,7 @@ function doSignUp()
 
 	let tmp = {login:login,Password:password, email:email, firstName:firstName, lastName:lastName};
 	let jsonPayload = JSON.stringify( tmp );
-
-	// console.log(jsonPayload);
-
 	let url = urlBase + '/register.' + extension;
-	// console.log(url);
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -98,7 +92,6 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
                 document.getElementById("signupResult").innerHTML = "Your account has successfully been created!";
-                // console.log("User created");
 				setTimeout(function(){
 					window.location.href = 'index.html';
 				 }, 1500);
@@ -215,7 +208,6 @@ function searchContact()
 	console.log("Searching...");
 	contact_count = 0;
 
-	// console.log("Searching");
 	let tableData = "";
 	document.getElementById("tableBody").innerHTML = tableData;
 
@@ -225,7 +217,6 @@ function searchContact()
 	
 
 	let tmp = {search:srch,UserID:userId};
-	// console.log(tmp);
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/search.' + extension;
@@ -239,8 +230,6 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// console.log("Contact(s) retrieved");
-
 				let jsonObject = JSON.parse( xhr.responseText );
 				
 				let length = jsonObject.results.length;
@@ -250,13 +239,7 @@ function searchContact()
 					console.log("No contacts");
 				}
 
-				// console.log(jsonObject);
-				// console.log(jsonObject.results.length);
-
-
 				let res = jsonObject.results;
-
-				// console.log(res);
 
 				myArray = res;
 				console.log(myArray);
@@ -264,17 +247,11 @@ function searchContact()
 
 				for (let i = 0; i < length; i++) {
 
-					// console.log(res[i]);
 
 					let first_name = res[i]["firstName"];
 					let last_name = res[i]["lastName"];
 					let email = res[i]["email"];
 					let phone = res[i]["phone"];
-
-					// console.log(email);
-
-					// results = this.response;
-					// console.log(results);	
 
 					tableData += 
 					`<tr id="${i}">
@@ -313,10 +290,7 @@ function doDelete(element) {
 
 	email = table.rows[i].cells[2].innerHTML;
 
-	
-
 	let tmp = {Email: email, UserID: userId};
-	// console.log(tmp);
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/delete.' + extension;
@@ -413,7 +387,6 @@ function showEdit(index)
 	document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
 	document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
 
-	// doEdit();
 
 }
 

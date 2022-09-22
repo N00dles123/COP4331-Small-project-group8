@@ -110,9 +110,10 @@
 	<div class="deleteModal" id="deleteModal" hidden>
 		<div class = "deleteModalContent">
 			<!-- <span class="close">&times;</span> -->
-			<h1>Are you sure?</h1>
-			<button type="button" class="cancelBtn" onclick="cancel();">Cancel</button>
-			<button type="button" class="deleteBtn" onclick="doDelete(); cancel();"">Delete</button>
+			<h1>Are you sure you want to delete this contact?</h1>
+			<div class="clearfix">
+				<button type="button" class="cancelBtn" onclick="cancel();">Cancel</button>
+				<button type="button" class="deleteBtn" onclick="doDelete(); cancel();"">Delete</button>
 		</div>
 	</div>
 </body>

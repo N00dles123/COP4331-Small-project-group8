@@ -73,9 +73,9 @@
 					<span class="form-item-icon material-symbols-rounded">person</span>
 					<input type="tel" id="add_phone" placeholder="Enter Phone Number" required>
 				</div>
-			
+				<span id="addError"></span>
 				<button type="submit" id="add_Button">Add Contact</button>
-				<button type="submit" id="add_Button" onclick="cancel();">Cancel</button>
+				<button type="submit" id="cancelAdd_Button" onclick="cancel();">Cancel</button>
 			</form>
 		</div>
 	</div>
@@ -101,12 +101,19 @@
 					<span class="form-item-icon material-symbols-rounded">person</span>
 					<input type="tel" id="edit_phone" placeholder="Enter Phone Number" required>
 				</div>
-			
+				<span id="editError"></span>
 				<button type="submit" id="edit_Button">Edit Contact</button>
-				<button type="submit" id="edit_Button" onclick="cancel();">Cancel</button>
+				<button type="submit" id="cancelEdit_Button" onclick="cancel();">Cancel</button>
 			</form>
 		</div>
 	</div>
-	
+	<div class="deleteModal" id="deleteModal" hidden>
+		<div class = "deleteModalContent">
+			<!-- <span class="close">&times;</span> -->
+			<h1>Are you sure?</h1>
+			<button type="button" class="cancelBtn" onclick="cancel();">Cancel</button>
+			<button type="button" class="deleteBtn" onclick="doDelete(); cancel();"">Delete</button>
+		</div>
+	</div>
 </body>
 </html>

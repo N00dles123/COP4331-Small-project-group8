@@ -26,8 +26,8 @@ function doLogin()
 	
 	let tmp = {login:login,password:password};
 	// var tmp = {login:login,password:hash};
+
 	let jsonPayload = JSON.stringify(tmp);
-	// console.log(jsonPayload);
 	let url = urlBase + '/login.' + extension;
 
 	let xhr = new XMLHttpRequest();
@@ -42,7 +42,7 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				// console.log(jsonObject);
+
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -61,7 +61,6 @@ function doLogin()
 	}
 	catch(err)
 	{
-		// console.log("error with http request");
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
@@ -80,13 +79,9 @@ function doSignUp()
 
 	let tmp = {login:login,Password:password, email:email, firstName:firstName, lastName:lastName};
 	let jsonPayload = JSON.stringify( tmp );
-
-	// console.log(jsonPayload);
-
 	let url = urlBase + '/register.' + extension;
-	// console.log(url);
-
 	let xhr = new XMLHttpRequest();
+
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -98,7 +93,6 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
                 document.getElementById("signupResult").innerHTML = "Your account has successfully been created!";
-                // console.log("User created");
 				setTimeout(function(){
 					window.location.href = 'index.html';
 				 }, 1500);
@@ -197,7 +191,7 @@ function addContact()
 			error = jsonObj.error;
 				
 				if(error == "") {
-					//document.getElementById("addResult").innerHTML = "Contact has been added";
+					document.getElementById("addResult").innerHTML = "Contact has been added";
 					searchContact();
 					cancel();
 				}
@@ -217,20 +211,15 @@ function addContact()
 
 function searchContact()
 {
-	console.log("Searching...");
-	contact_count = 0;
-
-	// console.log("Searching");
 	let tableData = "";
 	document.getElementById("tableBody").innerHTML = tableData;
 
 
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("searchResult").innerHTML = "";
+	// document.getElementById("searchResult").innerHTML = "";
 	
 
 	let tmp = {search:srch,UserID:userId};
-	// console.log(tmp);
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/search.' + extension;
@@ -244,10 +233,7 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// console.log("Contact(s) retrieved");
-
 				let jsonObject = JSON.parse( xhr.responseText );
-				
 				let length = jsonObject.results.length;
 
 
@@ -255,31 +241,17 @@ function searchContact()
 					console.log("No contacts");
 				}
 
-				// console.log(jsonObject);
-				// console.log(jsonObject.results.length);
-
-
 				let res = jsonObject.results;
 
-				// console.log(res);
 
 				myArray = res;
-				console.log(myArray);
-
 
 				for (let i = 0; i < length; i++) {
-
-					// console.log(res[i]);
 
 					let first_name = res[i]["firstName"];
 					let last_name = res[i]["lastName"];
 					let email = res[i]["email"];
 					let phone = res[i]["phone"];
-
-					// console.log(email);
-
-					// results = this.response;
-					// console.log(results);	
 
 					tableData += 
 					`<tr id="${i}">
@@ -310,23 +282,9 @@ function searchContact()
 
 function doDelete() {
 
-	console.log("Deleting...");
-	console.log(j);
-	console.log(myArray[j]);
-
-
-	// var i = element.parentNode.parentNode.rowIndex - 2;
-    // var table = document.getElementById("tableBody");
-
-	// email = table.rows[i].cells[2].innerHTML;
-
 	let email = myArray[j].email;
-
-
 	
-
 	let tmp = {Email: email, UserID: userId};
-	// console.log(tmp);
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/delete.' + extension;
@@ -354,27 +312,19 @@ function doDelete() {
 
 function doEdit() {
     
-
-	console.log(j);
-
-	console.log(myArray[j].contactID);
 	let contact_id = myArray[j].contactID;
-
-
 	var table = document.getElementById("tableBody");
+
 	let tmp_first = document.getElementById("edit_firstname").value;
 	let tmp_last = document.getElementById("edit_lastname").value;
 	let tmp_email = document.getElementById("edit_email").value;
 	let tmp_phone = document.getElementById("edit_phone").value;
 
 	let tmp = {ID: contact_id, UserID: userId, FirstName: tmp_first, LastName: tmp_last, Email: tmp_email, Phone: tmp_phone};
-	console.log(tmp);
-
 	let jsonPayload = JSON.stringify(tmp);
-
 	let url = urlBase + '/update.' + extension;
-
 	let xhr = new XMLHttpRequest();
+
 	xhr.open("PUT", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -414,7 +364,6 @@ function showEdit(index)
 		e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
 	});
 
-	console.log(index);
 	j = index;
 
 	var table = document.getElementById("tableBody");
@@ -422,8 +371,6 @@ function showEdit(index)
 	document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
 	document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
 	document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
-
-	// doEdit();
 
 }
 

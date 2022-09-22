@@ -362,7 +362,7 @@ td:nth-child(5n+5) {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 60%;
 }
 
 .close 
@@ -380,15 +380,43 @@ td:nth-child(5n+5) {
   cursor: pointer;
 }
 
+.cancelBtn, .deleteBtn 
+{
+    float: left;
+    width: 50%;
+}
+
 .cancelBtn
 {
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.9;
     background-color:#ccc;
     color: #000;
 }
 
-.deletebtn 
+.deleteBtn 
 {
+    position: relative;
+    left: 40px;
+    color:#000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.9;
     background-color: #f44336;
+}
+
+.clearfix::after 
+{
+    content: "";
+    clear: both;
+    display: table;
 }
 
 @media (max-width: 768px) {

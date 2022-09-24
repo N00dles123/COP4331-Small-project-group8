@@ -164,13 +164,6 @@ function addContact()
 	let email = document.getElementById("add_email").value;
 	let phone = document.getElementById("add_phone").value;
 
-	document.getElementById("add_firstname").value = "";
-	document.getElementById("add_lastname").value = "";
-	document.getElementById("add_email").value = "";
-	document.getElementById("add_phone").value = "";
-
-	document.getElementById("addError").innerHTML = "";
-
 	let tmp = {userID: userId, firstName: first_name, lastName: last_name, email: email, phoneNum: phone};
 	let jsonPayload = JSON.stringify( tmp );
 
@@ -194,6 +187,7 @@ function addContact()
 					document.getElementById("addResult").innerHTML = "Contact has been added";
 					searchContact();
 					cancel();
+					resetAddContactFields();
 				}
 				else {
 					document.getElementById("addError").innerHTML = jsonObj.error;
@@ -307,6 +301,7 @@ function doDelete() {
 			document.getElementById("deleteResult").innerHTML = err.message;
 		}
 	}
+
 function doEdit() {
     
 	let contact_id = myArray[j].contactID;
@@ -373,6 +368,7 @@ function showEdit(index)
 
 function showAdd()
 {
+	resetAddContactFields();
     var addCard = document.getElementById("add-card-container");
 	var table = document.getElementById("contacts-table");
 	var editCard = document.getElementById("edit-card-container");
@@ -397,6 +393,16 @@ function cancel() {
 	addCard.style.display = "none";
 	editCard.style.display = "none";
 	table.style.width = '100%';
+
+	resetAddContactFields();
+}
+
+function resetAddContactFields() {
+	document.getElementById("add_firstname").value = "";
+	document.getElementById("add_lastname").value = "";
+	document.getElementById("add_email").value = "";
+	document.getElementById("add_phone").value = "";
+	document.getElementById("addError").innerHTML = "";
 }
 
 function deleteConfirm(index)

@@ -13,7 +13,7 @@ $inData = getRequestInfo();
         //Look for the contact in the database
 	$email = $inData["Email"];
 	$userID = $inData["UserID"];
-        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE Email=? AND UserID=?");
+        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE Email like ? AND UserID=?");
         $stmt->bind_param("si", $email, $userID);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -21,7 +21,7 @@ $inData = getRequestInfo();
 	//if contact exists then delete it
         if(mysqli_num_rows($result) > 0){
 
-            $stmt = $conn->prepare("DELETE FROM Contacts WHERE Email=? AND UserID=?");
+            $stmt = $conn->prepare("DELETE FROM Contacts WHERE Email like ? AND UserID=?");
             $stmt->bind_param("si", $email, $userID);
 	    //delete the contact
             $stmt->execute();

@@ -5,7 +5,6 @@
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    /* background: linear-gradient(to right, #333399, #ff00cc); */
     background: rgb(10, 4, 115);
     background: linear-gradient(-30deg, rgba(10,4,115,1) 0%, rgba(9,9,121,1) 37%, rgb(95, 183, 201) 80%);
     /* display: flex; */
@@ -32,7 +31,7 @@ body {
     background: rgba(255, 255, 255, 0.35); 
     border-radius: 4px;
     inset: 0;
-    transform: rotate(-2deg);
+    transform: rotate(-0.5deg);
     z-index: -1;
 }
 
@@ -42,7 +41,7 @@ body {
     top: 10%;
 }
 
-.nav-bar-container h2 {
+.nav-bar-container h1 {
     position: absolute;
     left: 8%;
     top: 20%;
@@ -52,14 +51,14 @@ body {
     margin-bottom: 0;
 }
 
-.nav-bar-container h2 + div {
+.nav-bar-container h1 + div {
     font-size: calc(1rem * .8);
     opacity: 0.8;
 }
 
 .nav-bar-container button {
     left: 85%;
-    top: 30%;
+    top: 40%;
     position: absolute;
     background-color: black;
     border: none;
@@ -81,42 +80,66 @@ body {
     cursor: pointer;
 }
 
+#userName {
+    text-align: center;
+    font-size: 18px;
+    color: rgba(10,4,115,1);
+    font-weight: 600;
+    font-style: italic;
+    left: 8.2%;
+    top: 70%;
+    position: absolute;
+}
+
 .contacts-table {
     position: relative;
     width: 100%;
+    margin-top: 5px;
 }
 
 .contacts-table-header {
     text-align: center;
     align-content: center;
-}
-
-.table-header {
-    display: inline;
-    text-align: left;
-    align-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .contacts-table-header input {
-    height: 35px;
-    font-size: 18px;
-    width: 50%;
-    align-content: center;
-  }
-  
-.contacts-table-header button {
-    width: 50px;
-    height: 35px;
     border: none;
-    background: white;
-    color: black;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-.contacts-table-header button:hover {
-    background: #0b7dda;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 45%;
+    transition: background .5s;
 }
+
+.contacts-table-header input:focus {
+    background: white;
+}
+
+.contacts-table-header button{
+    position: inherit;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    height: 50px;
+    width: 50px;
+    border-radius: 20px;
+    transition: background .2s;
+    font-size: 1rem;  
+}
+  
+.contacts-table-header button:hover{
+    background-color: white;
+    color: black;      
+    font-weight: 600;
+    cursor: pointer;
+}
+
 .column-header {
     font-size: 20px;
 }
@@ -130,18 +153,12 @@ body {
 }
 
 table {
-    color: white;
+    align-content: center;
     text-align: center;
     border: none;
     border-collapse: collapse;
     background-color: rgba(255, 255, 255, 0.6);
-}
-
-table tr {
-    color: black;
-}
-table td {
-    color: black;
+    border-radius: 14px;
 }
 
 table th {
@@ -149,44 +166,109 @@ table th {
     border-bottom: 2px solid #000;
 }
 
-.add-card {
-    position: absolute;
-    margin-top: 50px;
-    left: 37%;
+table tr {
+    color: black;
+}
+table td {
+    padding: 4px;
+    font-size: 20px;
+    color: black;
 }
 
-.add-contact-form {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+#tableBody a:link {
+    color: black;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+#tableBody a:visited {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+  
+#tableBody a:hover {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+  
+#tableBody a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+#tableBody button{
+    position: inherit;
+    background-color: black;
+    border: none;
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 15px;
+    transition: background .2s;
+    margin-left: 2%;
+}
+
+#tableBody button .form-item-icon{
+    position: inherit;
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+#tableBody button:hover
+{
+    background-color: white;
+    color: black;      
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-card-container {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    left: 80%;
+    top: 134px;
+    /* height: 450px; */
+    height: auto;
+    border-radius: 10px;
+    margin-top: 5px;
+    width: calc(20% - 7px);
 }
 
 .add-contact-form .form-item {
     position: relative;
+    margin-left: 5px;
 }
 
 .add-contact-form .form-item .form-item-icon {
     position: absolute;
-    top: 0.82rem;
-    left: 1.4rem;
-    font-size: 2rem;
+    top: 18px;
+    left: 22px;
+    font-size: 32px;
     opacity: 0.7;
 }
 
 .add-card input[type="text"],
 .add-card input[type="email"],
-.add-card input[type="phone"] {
+.add-card input[type="tel"] {
     border: none;
     outline: none;
-    font-size: .9rem;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 1rem 1.5rem;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.65);
+    padding: 20px;
     padding-left: calc(1rem * 3.5);
-    border-radius: 100px;
-    width: 100%;
+    width: 97%;
+    border-radius: 25px;
     transition: background .5s;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
 
 .add-card input:focus {
     background: white;
@@ -196,13 +278,26 @@ table th {
     background-color: black;
     border: none;
     color: white;
-    padding: 1rem;
-    border-radius: 100px;
+    padding: 16px;
+    border-radius: 25px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: background .2s;
-    font-size: .9rem;
+    font-size: 16px;
+    width: 97%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+/* #add_Button {
+    margin-top: 25px;
+}
+
+#edit_Button {
+    margin-top: 25px;
+} */
 
 .add-contact-form button:hover {
     background-color: white;
@@ -211,43 +306,63 @@ table th {
     cursor: pointer;
 }
 
-.edit-card {
-    position: absolute;
-    margin-top: 50px;
-    left: 37%;
+#addError {
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+    position: relative;
+    color: red;
 }
 
-.edit-contact-form {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+#editError {
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+    position: relative;
+    color: red;
+}
+
+.edit-card-container {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    left: 80%;
+    top: 134px;
+    /* height: 450px; */
+    height: auto;
+    border-radius: 10px;
+    margin-top: 5px;
+    width: calc(20% - 7px);
 }
 
 .edit-contact-form .form-item {
     position: relative;
+    margin-left: 5px;
 }
 
 .edit-contact-form .form-item .form-item-icon {
     position: absolute;
-    top: 0.82rem;
-    left: 1.4rem;
-    font-size: 2rem;
+    top: 18px;
+    left: 22px;
+    font-size: 32px;
     opacity: 0.7;
 }
 
 .edit-card input[type="text"],
 .edit-card input[type="email"],
-.edit-card input[type="phone"] {
+.edit-card input[type="tel"] {
     border: none;
     outline: none;
-    font-size: .9rem;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 1rem 1.5rem;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.65);
+    padding: 20px;
     padding-left: calc(1rem * 3.5);
-    border-radius: 100px;
-    width: 100%;
+    width: 97%;
+    border-radius: 25px;
     transition: background .5s;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .edit-card input:focus {
@@ -258,12 +373,17 @@ table th {
     background-color: black;
     border: none;
     color: white;
-    padding: 1rem;
-    border-radius: 100px;
+    padding: 16px;
+    border-radius: 25px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: background .2s;
-    font-size: .9rem;
+    font-size: 16px;
+    width: 97%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .edit-contact-form button:hover {
@@ -271,6 +391,86 @@ table th {
     color: black;
     font-weight: 600;
     cursor: pointer;
+}
+
+.deleteModal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    /* cursor: pointer; */
+}
+
+.deleteModalContent
+{
+    /* display: none; */
+    /* position: fixed; */
+    z-index: 2;
+    text-align: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 250px;
+    padding: 1rem;
+    background-color: rgb(209, 225, 228);
+    border: 2px solid rgb(10, 4, 115);
+    border-radius: 10px;
+}
+
+.deleteModalContent button 
+{
+    /* left: 85%;
+    top: 40%; */
+    position: inherit;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1rem;
+    height: 50px;
+    width: 100px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .2s;
+    font-size: .9rem;
+}
+
+.deleteModalContent span
+{
+    font-size: 3rem;
+    font-weight: 600;
+    color: red;
+}
+
+.cancelBtn:hover{
+    background-color: rgb(99, 217, 99);
+    color: black;      
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: red;
+    color: white;      
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.clearfix::after 
+{
+    content: "";
+    clear: both;
+    display: table;
 }
 
 @media (max-width: 768px) {

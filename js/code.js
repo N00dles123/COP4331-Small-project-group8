@@ -26,8 +26,8 @@ function doLogin()
 	
 	let tmp = {login:login,password:password};
 	// var tmp = {login:login,password:hash};
+
 	let jsonPayload = JSON.stringify(tmp);
-	// console.log(jsonPayload);
 	let url = urlBase + '/login.' + extension;
 
 	let xhr = new XMLHttpRequest();
@@ -42,7 +42,7 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				// console.log(jsonObject);
+
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -61,7 +61,6 @@ function doLogin()
 	}
 	catch(err)
 	{
-		// console.log("error with http request");
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
@@ -80,13 +79,9 @@ function doSignUp()
 
 	let tmp = {login:login,Password:password, email:email, firstName:firstName, lastName:lastName};
 	let jsonPayload = JSON.stringify( tmp );
-
-	// console.log(jsonPayload);
-
 	let url = urlBase + '/register.' + extension;
-	// console.log(url);
-
 	let xhr = new XMLHttpRequest();
+
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -98,7 +93,6 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
                 document.getElementById("signupResult").innerHTML = "Your account has successfully been created!";
-                // console.log("User created");
 				setTimeout(function(){
 					window.location.href = 'index.html';
 				 }, 1500);
@@ -170,8 +164,6 @@ function addContact()
 	let email = document.getElementById("add_email").value;
 	let phone = document.getElementById("add_phone").value;
 
-	document.getElementById("addResult").innerHTML = "";
-
 	let tmp = {userID: userId, firstName: first_name, lastName: last_name, email: email, phoneNum: phone};
 	let jsonPayload = JSON.stringify( tmp );
 
@@ -182,6 +174,7 @@ function addContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
 		xhr.onreadystatechange = function() 
 		{
 			if (this.readyState == 4 && this.status == 200) 
@@ -192,39 +185,35 @@ function addContact()
 				
 				if(error == "") {
 					document.getElementById("addResult").innerHTML = "Contact has been added";
-
+					searchContact();
+					cancel();
+					resetAddContactFields();
 				}
 				else {
-					document.getElementById("addResult").innerHTML = jsonObj.error;
+					document.getElementById("addError").innerHTML = jsonObj.error;
 				}
 
 			}
 		};
-		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("addResult").innerHTML = jsonObject.error;
+		document.getElementById("addError").innerHTML = jsonObject.error;
 	}
 	
 }
 
 function searchContact()
 {
-
-	contact_count = 0;
-
-	// console.log("Searching");
 	let tableData = "";
 	document.getElementById("tableBody").innerHTML = tableData;
 
 
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("searchResult").innerHTML = "";
+	// document.getElementById("searchResult").innerHTML = "";
 	
 
 	let tmp = {search:srch,UserID:userId};
-	// console.log(tmp);
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/search.' + extension;
@@ -238,10 +227,7 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// console.log("Contact(s) retrieved");
-
 				let jsonObject = JSON.parse( xhr.responseText );
-				
 				let length = jsonObject.results.length;
 
 
@@ -249,41 +235,28 @@ function searchContact()
 					console.log("No contacts");
 				}
 
-				console.log(jsonObject);
-				console.log(jsonObject.results.length);
-
-
 				let res = jsonObject.results;
 
-				// console.log(res);
 
 				myArray = res;
-				console.log(myArray);
-
 
 				for (let i = 0; i < length; i++) {
-
-					// console.log(res[i]);
 
 					let first_name = res[i]["firstName"];
 					let last_name = res[i]["lastName"];
 					let email = res[i]["email"];
 					let phone = res[i]["phone"];
 
-					// console.log(email);
-
-					// results = this.response;
-					// console.log(results);	
-
 					tableData += 
 					`<tr id="${i}">
 					<td id="first_name">${first_name}</td>
 					<td id="last_name">${last_name}</td>
-					<td id="email">${email}</td>
+					<td id="email"><a href="mailto:${email}" target="_blank" rel="noopener noreferrer">${email}</a></td>
 					<td id="phone">${phone}</td>
-					<td><button type="button" onclick="showEdit(${i});"><img src="/images/editIcon.png" alt="edit" width="30" height="30"></button>
-                    <button type="button" onclick="doDelete(this);"><img src="/images/deleteIcon.png" alt="edit" width="30" height="30"></button>
-
+					<td>
+					<button type="button" onclick="showEdit(${i});"><span class="form-item-icon material-symbols-rounded">edit</span></button>
+					<button type="button" onclick="deleteConfirm(${i});"><span class="form-item-icon material-symbols-rounded">delete</span></button>
+					</td>
 					</tr>`;
 
 					contact_count = length;
@@ -302,182 +275,154 @@ function searchContact()
 }
 
 
-function doDelete(element) {
+function doDelete() {
+		let email = myArray[j].email;
+		let tmp = {Email: email, UserID: userId};
+		let jsonPayload = JSON.stringify(tmp);
+		let url = urlBase + '/delete.' + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
+		try {
+			xhr.send(jsonPayload);
+			xhr.onreadystatechange = function() {
 
-	// console.log(element);
+				if (this.readyState == 4 && this.status == 200) {
 
-	// console.log(document.getElementById("tableBody").rows.length);
+					let jsonObject = JSON.parse(xhr.responseText);
+					searchContact();
 
-	console.log("Deleting...");
-
-	// console.log("index: ");
-	// console.log(element.parentNode.parentNode.rowIndex);
-
-
-
-	// var i = element.parentNode.parentNode.rowIndex - 1;
-	// console.log(contact_count);
-
-	// document.getElementById("tableBody").deleteRow(i);
-	// console.log(email);
-
-	var i = element.parentNode.parentNode.rowIndex - 2;
-
-    console.log(i);
-
-    // console.log(contact_count);
-
-    var table = document.getElementById("tableBody");
-
-
-    // email = table.rows["test4"].cells[2].innerHTML;
-	email = table.rows[i].cells[2].innerHTML;
-
-    console.log(email);
-
-	
-
-	let tmp = {Email: email, UserID: userId};
-	console.log(tmp);
-	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + '/delete.' + extension;
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	try {
-		xhr.onreadystatechange = function() {
-
-			if (this.readyState == 4 && this.status == 200) {
-
-				let jsonObject = JSON.parse(xhr.responseText);
-				// userId = jsonObject.id;
-
-				document.getElementById("deleteResult").innerHTML = "Contact deleted";
-			}
-		};
-		xhr.send(jsonPayload);
+					document.getElementById("deleteResult").innerHTML = "Contact deleted";
+				}
+			};
+		}
+		catch(err) {
+			document.getElementById("deleteResult").innerHTML = err.message;
+		}
 	}
-	catch(err) {
-		document.getElementById("deleteResult").innerHTML = err.message;
-	}
-	searchContact();
-w
-}
 
 function doEdit() {
-
-
-	console.log(j);
-
-	console.log(myArray[j].contactID);
+    
 	let contact_id = myArray[j].contactID;
-	// console.log(element[5].firstName);
-	// console.log(element.rowIndex);
-
-
-	// var i = element.parentNode.Index - 2;
-	// var i = element.parentNode.parentNode.rowIndex - 2;
-
-
 	var table = document.getElementById("tableBody");
-	// var row = document.getElementById("1");
-	// console.log(row);
-
-	// document.getElementById("edit_firstname").value = table.rows[j].cells[0].innerHTML;
-	// document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
-	// document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
-	// document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
 
 	let tmp_first = document.getElementById("edit_firstname").value;
 	let tmp_last = document.getElementById("edit_lastname").value;
 	let tmp_email = document.getElementById("edit_email").value;
 	let tmp_phone = document.getElementById("edit_phone").value;
 
-
-
-	// document.getElementById("editResult").innerHTML = "";
-
-
-	// alert(userId);
-
 	let tmp = {ID: contact_id, UserID: userId, FirstName: tmp_first, LastName: tmp_last, Email: tmp_email, Phone: tmp_phone};
-
-	// alert(tmp);
-	console.log(tmp);
-
 	let jsonPayload = JSON.stringify(tmp);
-
 	let url = urlBase + '/update.' + extension;
-
 	let xhr = new XMLHttpRequest();
+
 	xhr.open("PUT", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	try {
-
+		xhr.send(jsonPayload);
 		xhr.onreadystatechange = function() {
 
 			if (this.readyState == 4 && this.status == 200) {
 
-				// let jsonObj = JSON.parse( xhr.responseText );
-				// console.log(jsonObj);
+				searchContact();
 
 				document.getElementById("editResult").innerHTML = "Contact has been updated successfully.";
+				cancel();
 			}
 		};
-		xhr.send(jsonPayload);
 	}
 	catch (err) {
 
 		document.getElementById("editResult").innerHTML = "error";
 	}
 	
-    // if (x.style.display === "block")
-    // {
-    //   x.style.display = "none";
-    // } 
-    // else 
-    // {
-    //   x.style.display = "block";
-    // }
 }
 
 function showEdit(index) 
 {
 
-	console.log(index);
+	var editCard = document.getElementById("edit-card-container");
+	var table = document.getElementById("contacts-table");
+	var addCard = document.getElementById("add-card-container");
+
+    editCard.style.display = "block";
+	addCard.style.display = "none";
+	table.style.width = '80%';
+
+	document.getElementById('edit_phone').addEventListener('input', function (e) {
+		var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+		e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+	});
+
 	j = index;
 
 	var table = document.getElementById("tableBody");
 	document.getElementById("edit_firstname").value = table.rows[j].cells[0].innerHTML;
 	document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
-	document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
+	document.getElementById("edit_email").value = table.rows[j].cells[2].innerText;
 	document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
 
-
-	var x = document.getElementById("edit-card");
-    if (x.style.display === "block")
-    {
-      x.style.display = "none";
-    } 
-    else 
-    {
-      x.style.display = "block";
-    }
 }
 
 function showAdd()
 {
-    var x = document.getElementById("add-card");
-    if (x.style.display === "block")
-    {
-      x.style.display = "none";
-    } 
-    else 
-    {
-      x.style.display = "block";
-    }
+	resetAddContactFields();
+    var addCard = document.getElementById("add-card-container");
+	var table = document.getElementById("contacts-table");
+	var editCard = document.getElementById("edit-card-container");
+
+	editCard.style.display = "none";
+    addCard.style.display = "block";
+	table.style.width = '80%';
+
+	document.getElementById('add_phone').addEventListener('input', function (e) {
+		var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+		e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+	});
+}
+
+function cancel() {
+	var addCard = document.getElementById("add-card-container");
+	var editCard = document.getElementById("edit-card-container");
+	var table = document.getElementById("contacts-table");
+	var modal = document.getElementById("deleteModal");
+
+	modal.style.display = "none";
+	addCard.style.display = "none";
+	editCard.style.display = "none";
+	table.style.width = '100%';
+
+	resetAddContactFields();
+}
+
+function resetAddContactFields() {
+	document.getElementById("add_firstname").value = "";
+	document.getElementById("add_lastname").value = "";
+	document.getElementById("add_email").value = "";
+	document.getElementById("add_phone").value = "";
+	document.getElementById("addError").innerHTML = "";
+}
+
+function deleteConfirm(index)
+{
+	j = index;
+	var modal = document.getElementById("deleteModal");
+	// var span = document.getElementsByClassName("close")[0];
+
+	modal.style.display = "block";
+
+	// span.onclick = function()
+	// {
+	// 	modal.style.display = "none";
+	// }
+	window.onclick = function(event) 
+	{
+		if (event.target == modal) 
+		{
+		  modal.style.display = "none";
+		}
+	}
+	
 }

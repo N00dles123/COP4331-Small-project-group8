@@ -251,7 +251,7 @@ function searchContact()
 					`<tr id="${i}">
 					<td id="first_name">${first_name}</td>
 					<td id="last_name">${last_name}</td>
-					<td id="email">${email}</td>
+					<td id="email"><a href="mailto:${email}" target="_blank" rel="noopener noreferrer">${email}</a></td>
 					<td id="phone">${phone}</td>
 					<td>
 					<button type="button" onclick="showEdit(${i});"><span class="form-item-icon material-symbols-rounded">edit</span></button>
@@ -361,7 +361,7 @@ function showEdit(index)
 	var table = document.getElementById("tableBody");
 	document.getElementById("edit_firstname").value = table.rows[j].cells[0].innerHTML;
 	document.getElementById("edit_lastname").value = table.rows[j].cells[1].innerHTML;
-	document.getElementById("edit_email").value = table.rows[j].cells[2].innerHTML;
+	document.getElementById("edit_email").value = table.rows[j].cells[2].innerText;
 	document.getElementById("edit_phone").value = table.rows[j].cells[3].innerHTML;
 
 }

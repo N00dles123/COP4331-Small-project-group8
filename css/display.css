@@ -175,6 +175,30 @@ table td {
     color: black;
 }
 
+#tableBody a:link {
+    color: black;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+#tableBody a:visited {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+  
+#tableBody a:hover {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+  
+#tableBody a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 #tableBody button{
     position: inherit;
     background-color: black;
